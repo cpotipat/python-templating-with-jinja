@@ -21,11 +21,18 @@ def home():
     return render_template("index.html", year=current_year)
 
 
-@app.route('/guess/<name>')
+@app.route("/guess/<name>")
 def guess_by_name(name):
     gender = gender_of_name(name)
     age = age_of_name(name)
     return render_template("guess.html", name=name, gender=gender, age=age)
+
+
+@app.route("/blog")
+def get_blog():
+    blog_url = "https://api.npoint.io/6fb3de985ecf531f828f"
+    all_posts = requests.get(blog_url).json()
+    return render_template("blog.html", posts=all_posts)
 
 
 if __name__ == "__main__":
